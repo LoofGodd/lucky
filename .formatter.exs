@@ -1,6 +1,5 @@
 [
   import_deps: [
-    :ash_double_entry,
     :ash_events,
     :ash_state_machine,
     :ash_oban,

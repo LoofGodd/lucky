@@ -12,14 +12,24 @@ defmodule BettingWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :maybe_auth_from_token do
+    plug BettingWeb.Plugs.AuthFromToken
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", BettingWeb do
     pipe_through :browser
-
     get "/", PageController, :home
+    post "/login", LoginController, :partner_user_login
+  end
+
+  scope "/", BettingWeb do
+    pipe_through [:browser, :maybe_auth_from_token]
+    get "/user", UserController, :show
+    get "/playing", UserController, :show
   end
 
   # Other scopes may use custom stacks.

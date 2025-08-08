@@ -46,7 +46,6 @@ defmodule Betting.MixProject do
       {:sourceror, "~> 1.8", only: [:dev, :test]},
       {:oban, "~> 2.0"},
       {:live_debugger, "~> 0.3", only: [:dev]},
-      {:ash_double_entry, "~> 1.0"},
       {:ash_money, "~> 0.2"},
       {:ash_events, "~> 0.4"},
       {:ash_state_machine, "~> 0.2"},
@@ -82,6 +81,7 @@ defmodule Betting.MixProject do
       {:gettext, "~> 0.26"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
+      {:picosat_elixir, "~> 0.2.3"},
       {:bandit, "~> 1.5"}
     ]
   end
