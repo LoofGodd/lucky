@@ -11,6 +11,11 @@ defmodule Betting.Application do
       BettingWeb.Telemetry,
       Betting.Repo,
       {DNSCluster, query: Application.get_env(:betting, :dns_cluster_query) || :ignore},
+      {Oban,
+       AshOban.config(
+         Application.fetch_env!(:betting, :ash_domains),
+         Application.fetch_env!(:betting, Oban)
+       )},
       {Phoenix.PubSub, name: Betting.PubSub},
       # Start a worker by calling: Betting.Worker.start_link(arg)
       # {Betting.Worker, arg},

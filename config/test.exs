@@ -1,4 +1,6 @@
 import Config
+config :betting, Oban, testing: :manual
+config :ash, policies: [show_policy_breakdowns?: true], disable_async?: true
 
 # Configure your database
 #

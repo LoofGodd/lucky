@@ -7,9 +7,69 @@
 # General application configuration
 import Config
 
+config :ex_cldr, default_backend: Betting.Cldr
+
+# If you use ex_money
+config :ex_money,
+  default_cldr_backend: Betting.Cldr
+
+config :ash_oban, pro?: false
+
+config :betting, Oban,
+  engine: Oban.Engines.Basic,
+  notifier: Oban.Notifiers.Postgres,
+  queues: [default: 10],
+  repo: Betting.Repo,
+  plugins: [{Oban.Plugins.Cron, []}]
+
+config :ash,
+  allow_forbidden_field_for_relationships_by_default?: true,
+  include_embedded_source_by_default?: false,
+  show_keysets_for_all_actions?: false,
+  default_page_type: :keyset,
+  policies: [no_filter_static_forbidden_reads?: false],
+  keep_read_action_loads_when_loading?: false,
+  default_actions_require_atomic?: true,
+  read_action_after_action_hooks_in_order?: true,
+  bulk_actions_default_to_errors?: true,
+  known_types: [AshMoney.Types.Money],
+  custom_types: [money: AshMoney.Types.Money]
+
+config :spark,
+  formatter: [
+    remove_parens?: true,
+    "Ash.Resource": [
+      section_order: [
+        :account,
+        :balance,
+        :transfer,
+        :admin,
+        :postgres,
+        :resource,
+        :code_interface,
+        :actions,
+        :policies,
+        :pub_sub,
+        :preparations,
+        :changes,
+        :validations,
+        :multitenancy,
+        :attributes,
+        :relationships,
+        :calculations,
+        :aggregates,
+        :identities
+      ]
+    ],
+    "Ash.Domain": [
+      section_order: [:admin, :resources, :policies, :authorization, :domain, :execution]
+    ]
+  ]
+
 config :betting,
   ecto_repos: [Betting.Repo],
-  generators: [timestamp_type: :utc_datetime]
+  generators: [timestamp_type: :utc_datetime],
+  ash_domains: [Betting.Ledger]
 
 # Configures the endpoint
 config :betting, BettingWeb.Endpoint,
