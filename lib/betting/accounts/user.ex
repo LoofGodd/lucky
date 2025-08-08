@@ -7,7 +7,7 @@ defmodule Betting.Accounts.User do
 
   postgres do
     table "users"
-    repo Betting.Rep
+    repo Betting.Repo
   end
 
   actions do
