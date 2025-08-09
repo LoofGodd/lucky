@@ -52,6 +52,11 @@ defmodule Betting.Accounts.User do
       validate one_of(:role, ["admin", "user", "moderator"])
     end
 
+    attribute :metadata, :map do
+      allow_nil? true
+      description "Free-form JSON object"
+    end
+
     create_timestamp :inserted_at
     update_timestamp :updated_at
   end

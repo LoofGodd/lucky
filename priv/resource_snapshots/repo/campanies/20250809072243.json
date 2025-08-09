@@ -2,7 +2,7 @@
   "attributes": [
     {
       "allow_nil?": false,
-      "default": "fragment(\"uuid_generate_v7()\")",
+      "default": "fragment(\"gen_random_uuid()\")",
       "generated?": false,
       "precision": null,
       "primary_key?": true,
@@ -21,7 +21,7 @@
       "references": null,
       "scale": null,
       "size": null,
-      "source": "identifier",
+      "source": "name",
       "type": "text"
     },
     {
@@ -33,8 +33,32 @@
       "references": null,
       "scale": null,
       "size": null,
-      "source": "currency",
+      "source": "slug",
       "type": "text"
+    },
+    {
+      "allow_nil?": true,
+      "default": "nil",
+      "generated?": false,
+      "precision": null,
+      "primary_key?": false,
+      "references": null,
+      "scale": null,
+      "size": null,
+      "source": "url",
+      "type": "text"
+    },
+    {
+      "allow_nil?": true,
+      "default": "nil",
+      "generated?": false,
+      "precision": null,
+      "primary_key?": false,
+      "references": null,
+      "scale": null,
+      "size": null,
+      "source": "metadata",
+      "type": "map"
     },
     {
       "allow_nil?": false,
@@ -66,19 +90,19 @@
   "custom_indexes": [],
   "custom_statements": [],
   "has_create_action": true,
-  "hash": "A87EB7342DFB6330CCC8889CAA770C08AFDC62F15EA781C222DC793495CC3A70",
+  "hash": "E169436FA2FF5003E248DD9D283E3E8205EFF5C24981B985419761B8D8844DC5",
   "identities": [
     {
       "all_tenants?": false,
       "base_filter": null,
-      "index_name": "ledger_accounts_unique_identifier_index",
+      "index_name": "campanies_slug_index",
       "keys": [
         {
           "type": "atom",
-          "value": "identifier"
+          "value": "slug"
         }
       ],
-      "name": "unique_identifier",
+      "name": "slug",
       "nils_distinct?": true,
       "where": null
     }
@@ -90,5 +114,5 @@
   },
   "repo": "Elixir.Betting.Repo",
   "schema": null,
-  "table": "ledger_accounts"
+  "table": "campanies"
 }

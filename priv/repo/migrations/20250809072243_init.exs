@@ -13,6 +13,7 @@ defmodule Betting.Repo.Migrations.Init do
       add :username, :text, null: false
       add :balance, :float, default: 0.0
       add :role, :text, default: "user"
+      add :metadata, :map
 
       add :inserted_at, :utc_datetime_usec,
         null: false,
@@ -44,6 +45,8 @@ defmodule Betting.Repo.Migrations.Init do
     alter table(:campanies) do
       add :name, :text, null: false
       add :slug, :text, null: false
+      add :url, :text
+      add :metadata, :map
 
       add :inserted_at, :utc_datetime_usec,
         null: false,
@@ -63,6 +66,8 @@ defmodule Betting.Repo.Migrations.Init do
     alter table(:campanies) do
       remove :updated_at
       remove :inserted_at
+      remove :metadata
+      remove :url
       remove :slug
       remove :name
     end

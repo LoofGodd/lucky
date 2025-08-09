@@ -2,8 +2,7 @@ defmodule Betting.Accounts.Company do
   use Ash.Resource,
     otp_app: :betting,
     data_layer: AshPostgres.DataLayer,
-    domain: Betting.Main,
-    authorizers: [Ash.Policy.Authorizer]
+    domain: Betting.Main
 
   postgres do
     table "campanies"
@@ -12,16 +11,6 @@ defmodule Betting.Accounts.Company do
 
   actions do
     defaults [:read, :create, :update]
-  end
-
-  policies do
-    policy always() do
-      authorize_if true
-    end
-
-    # policy action([[:read, :update, :create]]) do
-    #   authorize_if expr(^actor(:company_id) == id and ^actor(:role) == "admin")
-    # end
   end
 
   attributes do
@@ -33,6 +22,15 @@ defmodule Betting.Accounts.Company do
 
     attribute :slug, :string do
       allow_nil? false
+    end
+
+    attribute :url, :string do
+      allow_nil? true
+    end
+
+    attribute :metadata, :map do
+      allow_nil? true
+      description "Free-form JSON object"
     end
 
     create_timestamp :inserted_at

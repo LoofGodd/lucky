@@ -49,6 +49,18 @@
       "type": "text"
     },
     {
+      "allow_nil?": true,
+      "default": "nil",
+      "generated?": false,
+      "precision": null,
+      "primary_key?": false,
+      "references": null,
+      "scale": null,
+      "size": null,
+      "source": "metadata",
+      "type": "map"
+    },
+    {
       "allow_nil?": false,
       "default": "fragment(\"(now() AT TIME ZONE 'utc')\")",
       "generated?": false,
@@ -109,7 +121,7 @@
   "custom_indexes": [],
   "custom_statements": [],
   "has_create_action": true,
-  "hash": "B619F73ED8BD789AE8F46151C09ADF6072E62E98E9ECEC97742950DA6E694F0F",
+  "hash": "2DF1893E6A1D3A83B3445BAA9EB916DC699F510A604F56A6E7D6AB620378A5EA",
   "identities": [
     {
       "all_tenants?": false,

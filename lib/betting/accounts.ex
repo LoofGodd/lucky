@@ -8,7 +8,6 @@ defmodule Betting.Accounts do
          |> Ash.Query.filter(slug: slug)
          |> Ash.read_one!() do
       c -> {:ok, c}
-      _ -> :error
     end
   end
 
@@ -17,7 +16,6 @@ defmodule Betting.Accounts do
          |> Ash.Query.filter(id: id)
          |> Ash.read_one!() do
       c -> {:ok, c}
-      _ -> :error
     end
   end
 
