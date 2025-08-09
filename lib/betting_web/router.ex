@@ -23,7 +23,6 @@ defmodule BettingWeb.Router do
   scope "/", BettingWeb do
     pipe_through :browser
     get "/", PageController, :home
-    post "/login", LoginController, :partner_user_login
   end
 
   scope "/", BettingWeb do
@@ -33,9 +32,10 @@ defmodule BettingWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", BettingWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", BettingWeb do
+    pipe_through :api
+    post "/login", LoginController, :partner_user_login
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:betting, :dev_routes) do

@@ -2,8 +2,9 @@ defmodule Betting.Accounts.User do
   use Ash.Resource,
     otp_app: :betting,
     domain: Betting.Main,
-    data_layer: AshPostgres.DataLayer,
-    authorizers: [Ash.Policy.Authorizer]
+    data_layer: AshPostgres.DataLayer
+
+  # authorizers: [Ash.Policy.Authorizer]
 
   postgres do
     table "users"
@@ -11,26 +12,24 @@ defmodule Betting.Accounts.User do
   end
 
   actions do
-    defaults [:read, :create, :update]
-  end
+    defaults [:read, :update]
 
-  policies do
-    # Must be in same company for anything
-    policy always() do
-      authorize_if expr(^actor(:company_id) == company_id)
-    end
-
-    # Read: self OR admin
-    policy action(:read) do
-      authorize_if expr(id == ^actor(:id))
-      authorize_if expr(^actor(:role) == "admin")
-    end
-
-    # Create/update: admin only
-    policy action([:create, :update]) do
-      authorize_if expr(^actor(:role) == "admin")
+    create :create do
+      accept [:username, :role, :balance]
     end
   end
+
+  # policies do
+  #
+  #   policy action(:read) do
+  #     authorize_if expr(id == ^actor(:id))
+  #     authorize_if expr(^actor(:role) == "admin")
+  #   end
+  #
+  #   policy action([:create, :update]) do
+  #     authorize_if expr(^actor(:role) == "admin")
+  #   end
+  # end
 
   multitenancy do
     strategy :attribute
@@ -38,9 +37,7 @@ defmodule Betting.Accounts.User do
   end
 
   attributes do
-    # Use uuid_primary_key unless you're sure you want v7
     uuid_primary_key :id
-
     attribute :username, :string, allow_nil?: false
 
     attribute :balance, :float do
@@ -52,7 +49,7 @@ defmodule Betting.Accounts.User do
     end
 
     validations do
-      validate one_of(:role, in: ["admin", "user"])
+      validate one_of(:role, ["admin", "user", "moderator"])
     end
 
     create_timestamp :inserted_at

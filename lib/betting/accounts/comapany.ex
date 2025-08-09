@@ -15,9 +15,13 @@ defmodule Betting.Accounts.Company do
   end
 
   policies do
-    policy action([[:read, :update, :create]]) do
-      authorize_if expr(^actor(:company_id) == id and ^actor(:role) == "admin")
+    policy always() do
+      authorize_if true
     end
+
+    # policy action([[:read, :update, :create]]) do
+    #   authorize_if expr(^actor(:company_id) == id and ^actor(:role) == "admin")
+    # end
   end
 
   attributes do
