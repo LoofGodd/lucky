@@ -757,6 +757,6 @@ defmodule Betting.Repo.Migrations.InitExtensions1 do
     );
     """
 
-    # execute("DROP EXTENSION IF EXISTS \"ct itext\"")
+    # execute("DROP EXTENSION IF EXISTS \"citext\"")
   end
 end

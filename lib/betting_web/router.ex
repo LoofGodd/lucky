@@ -63,7 +63,7 @@ defmodule BettingWeb.Router do
     reset_route auth_routes_prefix: "/auth",
                 overrides: [BettingWeb.AuthOverrides, AshAuthentication.Phoenix.Overrides.Default]
 
-    # Remove this if you do not use the confirmation strategy
+    # eRemove this if you do not use the confirmation strategy
     confirm_route Betting.Accounts.User, :confirm_new_user,
       auth_routes_prefix: "/auth",
       overrides: [BettingWeb.AuthOverrides, AshAuthentication.Phoenix.Overrides.Default]
@@ -77,7 +77,14 @@ defmodule BettingWeb.Router do
 
   scope "/", BettingWeb do
     pipe_through [:browser, :maybe_auth_from_token]
-    get "/playing", UserController, :show
+
+    live_session :playing,
+      on_mount: [
+        {BettingWeb.Utils.Auth, :ensure_authed},
+        {BettingWeb.Utils.Auth, :ensure_player}
+      ] do
+      get "/user/playing", UserController, :show
+    end
   end
 
   # Other scopes may use custom stacks.

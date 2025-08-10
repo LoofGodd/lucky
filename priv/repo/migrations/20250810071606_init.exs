@@ -45,7 +45,7 @@ defmodule Betting.Repo.Migrations.Init do
     create table(:players, primary_key: false) do
       add :id, :uuid, null: false, default: fragment("gen_random_uuid()"), primary_key: true
       add :username, :text
-      add :role, :text, default: "user"
+      add :role, :text, default: "player"
       add :status, :text, default: "active"
       add :risk_level, :text, default: "low"
       add :metadata, :map

@@ -1,5 +1,5 @@
 defmodule Betting.Accounts do
-  alias Betting.Accounts.{Company, User}
+  alias Betting.Accounts.{Company, Player}
 
   require Ash.Query
 
@@ -21,14 +21,14 @@ defmodule Betting.Accounts do
 
   def get_user_by_username(username, company_id) do
     query =
-      User
+      Player
       |> Ash.Query.filter(username == ^username)
 
     case Ash.read_one(query, tenant: company_id) do
       {:ok, nil} ->
         params = %{username: username}
 
-        User
+        Player
         |> Ash.Changeset.for_create(:create, params)
         |> Ash.create(tenant: company_id)
 

@@ -28,7 +28,7 @@ defmodule Betting.Accounts.Player do
     attribute :username, :string
 
     attribute :role, :string do
-      default "user"
+      default "player"
     end
 
     attribute :status, :string do
