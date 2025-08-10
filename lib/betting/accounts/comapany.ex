@@ -10,7 +10,11 @@ defmodule Betting.Accounts.Company do
   end
 
   actions do
-    defaults [:read, :create, :update]
+    defaults [:read, :update]
+
+    create :create do
+      accept [:name, :slug, :url, :metadata]
+    end
   end
 
   attributes do
@@ -38,7 +42,7 @@ defmodule Betting.Accounts.Company do
   end
 
   relationships do
-    has_many :users, Betting.Accounts.User
+    has_many :player, Betting.Accounts.Player
   end
 
   identities do

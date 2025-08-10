@@ -10,9 +10,44 @@ defmodule Betting.Repo.Migrations.Init do
   def up do
     create table(:users, primary_key: false) do
       add :id, :uuid, null: false, default: fragment("gen_random_uuid()"), primary_key: true
-      add :username, :text, null: false
-      add :balance, :float, default: 0.0
+      add :email, :citext, null: false
+      add :role, :text, default: "mederator"
+      add :hashed_password, :text, null: false
+      add :confirmed_at, :utc_datetime_usec
+
+      add :inserted_at, :utc_datetime_usec,
+        null: false,
+        default: fragment("(now() AT TIME ZONE 'utc')")
+
+      add :updated_at, :utc_datetime_usec,
+        null: false,
+        default: fragment("(now() AT TIME ZONE 'utc')")
+    end
+
+    create unique_index(:users, [:email], name: "users_unique_email_index")
+
+    create table(:tokens, primary_key: false) do
+      add :jti, :text, null: false, primary_key: true
+      add :subject, :text, null: false
+      add :expires_at, :utc_datetime, null: false
+      add :purpose, :text, null: false
+      add :extra_data, :map
+
+      add :created_at, :utc_datetime_usec,
+        null: false,
+        default: fragment("(now() AT TIME ZONE 'utc')")
+
+      add :updated_at, :utc_datetime_usec,
+        null: false,
+        default: fragment("(now() AT TIME ZONE 'utc')")
+    end
+
+    create table(:players, primary_key: false) do
+      add :id, :uuid, null: false, default: fragment("gen_random_uuid()"), primary_key: true
+      add :username, :text
       add :role, :text, default: "user"
+      add :status, :text, default: "active"
+      add :risk_level, :text, default: "low"
       add :metadata, :map
 
       add :inserted_at, :utc_datetime_usec,
@@ -23,24 +58,26 @@ defmodule Betting.Repo.Migrations.Init do
         null: false,
         default: fragment("(now() AT TIME ZONE 'utc')")
 
-      add :company_id, :uuid, null: false
+      add :company_id, :uuid
     end
 
     create table(:campanies, primary_key: false) do
       add :id, :uuid, null: false, default: fragment("gen_random_uuid()"), primary_key: true
     end
 
-    alter table(:users) do
+    alter table(:players) do
       modify :company_id,
              references(:campanies,
                column: :id,
-               name: "users_company_id_fkey",
+               name: "players_company_id_fkey",
                type: :uuid,
                prefix: "public"
              )
     end
 
-    create unique_index(:users, [:company_id, :username], name: "users_username_in_company_index")
+    create unique_index(:players, [:company_id, :username],
+             name: "players_unique_username_companry_index"
+           )
 
     alter table(:campanies) do
       add :name, :text, null: false
@@ -72,17 +109,23 @@ defmodule Betting.Repo.Migrations.Init do
       remove :name
     end
 
-    drop_if_exists unique_index(:users, [:company_id, :username],
-                     name: "users_username_in_company_index"
+    drop_if_exists unique_index(:players, [:company_id, :username],
+                     name: "players_unique_username_companry_index"
                    )
 
-    drop constraint(:users, "users_company_id_fkey")
+    drop constraint(:players, "players_company_id_fkey")
 
-    alter table(:users) do
+    alter table(:players) do
       modify :company_id, :uuid
     end
 
     drop table(:campanies)
+
+    drop table(:players)
+
+    drop table(:tokens)
+
+    drop_if_exists unique_index(:users, [:email], name: "users_unique_email_index")
 
     drop table(:users)
   end

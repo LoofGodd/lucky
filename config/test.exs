@@ -1,4 +1,6 @@
 import Config
+config :betting, token_signing_secret: "+EUlLNUAUm/oHfa474gfKJZRh89INgKh"
+config :bcrypt_elixir, log_rounds: 1
 config :betting, Oban, testing: :manual
 config :ash, policies: [show_policy_breakdowns?: true], disable_async?: true
 

@@ -20,7 +20,8 @@ defmodule Betting.Application do
       # Start a worker by calling: Betting.Worker.start_link(arg)
       # {Betting.Worker, arg},
       # Start to serve requests, typically the last entry
-      BettingWeb.Endpoint
+      BettingWeb.Endpoint,
+      {AshAuthentication.Supervisor, [otp_app: :betting]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

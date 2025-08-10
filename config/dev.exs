@@ -65,7 +65,7 @@ config :betting, BettingWeb.Endpoint,
   ]
 
 # Enable dev routes for dashboard and mailbox
-config :betting, dev_routes: true
+config :betting, dev_routes: true, token_signing_secret: "YAVoLVzq1Pm2ODnr+SGNZ9RT63qB1BzN"
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :default_formatter, format: "[$level] $message\n"

@@ -40,6 +40,8 @@ config :spark,
     remove_parens?: true,
     "Ash.Resource": [
       section_order: [
+        :authentication,
+        :tokens,
         :account,
         :balance,
         :transfer,

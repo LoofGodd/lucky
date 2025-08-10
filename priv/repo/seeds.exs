@@ -10,34 +10,24 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 #
-alias Betting.Repo
 alias Betting.Accounts.{Company, User}
 
 # 1. Insert a company
-company =
-  %Company{
-    id: Ash.UUID.generate(),
-    name: "Demo Company",
-    slug: "demo-comapany"
-  }
-  |> Repo.insert!()
+Company
+|> Ash.Changeset.for_create(:create, %{
+  name: "ISK",
+  slug: "isk",
+  url: "example.com"
+})
+|> Ash.create!()
 
-# 2. Insert an admin user for that company
-%User{
-  id: Ash.UUID.generate(),
-  username: "admin",
+User
+|> Ash.Changeset.for_create(:register_with_password, %{
+  email: "love@example.com",
   role: "admin",
-  company_id: company.id
-}
-|> Repo.insert!()
+  password: "123456789qwertyu",
+  password_confirmation: "123456789qwertyu"
+})
+|> Ash.create!()
 
-# 3. Insert a normal user
-%User{
-  id: Ash.UUID.generate(),
-  username: "johndoe",
-  role: "user",
-  company_id: company.id
-}
-|> Repo.insert!()
-
-IO.puts("✅ Seed data inserted: company + 2 users")
+IO.puts("✅ Seed data inserted: company + 1 users")

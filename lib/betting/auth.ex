@@ -1,7 +1,7 @@
 defmodule Betting.Auth do
   @salt "login-link-1"
 
-  def sign(%Betting.Accounts.User{id: id, company_id: company_id}) do
+  def sign(%Betting.Accounts.Player{id: id, company_id: company_id}) do
     Phoenix.Token.sign(
       BettingWeb.Endpoint,
       @salt,

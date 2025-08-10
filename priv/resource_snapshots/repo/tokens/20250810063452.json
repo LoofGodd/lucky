@@ -2,15 +2,15 @@
   "attributes": [
     {
       "allow_nil?": false,
-      "default": "fragment(\"gen_random_uuid()\")",
+      "default": "nil",
       "generated?": false,
       "precision": null,
       "primary_key?": true,
       "references": null,
       "scale": null,
       "size": null,
-      "source": "id",
-      "type": "uuid"
+      "source": "jti",
+      "type": "text"
     },
     {
       "allow_nil?": false,
@@ -21,31 +21,31 @@
       "references": null,
       "scale": null,
       "size": null,
-      "source": "username",
+      "source": "subject",
       "type": "text"
     },
     {
-      "allow_nil?": true,
-      "default": "0.0",
+      "allow_nil?": false,
+      "default": "nil",
       "generated?": false,
       "precision": null,
       "primary_key?": false,
       "references": null,
       "scale": null,
       "size": null,
-      "source": "balance",
-      "type": "float"
+      "source": "expires_at",
+      "type": "utc_datetime"
     },
     {
-      "allow_nil?": true,
-      "default": "\"user\"",
+      "allow_nil?": false,
+      "default": "nil",
       "generated?": false,
       "precision": null,
       "primary_key?": false,
       "references": null,
       "scale": null,
       "size": null,
-      "source": "role",
+      "source": "purpose",
       "type": "text"
     },
     {
@@ -57,7 +57,7 @@
       "references": null,
       "scale": null,
       "size": null,
-      "source": "metadata",
+      "source": "extra_data",
       "type": "map"
     },
     {
@@ -69,7 +69,7 @@
       "references": null,
       "scale": null,
       "size": null,
-      "source": "inserted_at",
+      "source": "created_at",
       "type": "utc_datetime_usec"
     },
     {
@@ -83,37 +83,6 @@
       "size": null,
       "source": "updated_at",
       "type": "utc_datetime_usec"
-    },
-    {
-      "allow_nil?": false,
-      "default": "nil",
-      "generated?": false,
-      "precision": null,
-      "primary_key?": false,
-      "references": {
-        "deferrable": false,
-        "destination_attribute": "id",
-        "destination_attribute_default": null,
-        "destination_attribute_generated": null,
-        "index?": false,
-        "match_type": null,
-        "match_with": null,
-        "multitenancy": {
-          "attribute": null,
-          "global": null,
-          "strategy": null
-        },
-        "name": "users_company_id_fkey",
-        "on_delete": null,
-        "on_update": null,
-        "primary_key?": true,
-        "schema": "public",
-        "table": "campanies"
-      },
-      "scale": null,
-      "size": null,
-      "source": "company_id",
-      "type": "uuid"
     }
   ],
   "base_filter": null,
@@ -121,33 +90,14 @@
   "custom_indexes": [],
   "custom_statements": [],
   "has_create_action": true,
-  "hash": "2DF1893E6A1D3A83B3445BAA9EB916DC699F510A604F56A6E7D6AB620378A5EA",
-  "identities": [
-    {
-      "all_tenants?": false,
-      "base_filter": null,
-      "index_name": "users_username_in_company_index",
-      "keys": [
-        {
-          "type": "atom",
-          "value": "company_id"
-        },
-        {
-          "type": "atom",
-          "value": "username"
-        }
-      ],
-      "name": "username_in_company",
-      "nils_distinct?": true,
-      "where": null
-    }
-  ],
+  "hash": "BDD4FCCD94559FFFD75F6A71B2208E7030D25A6E13D7D43B405628E93480F6A2",
+  "identities": [],
   "multitenancy": {
-    "attribute": "company_id",
-    "global": false,
-    "strategy": "attribute"
+    "attribute": null,
+    "global": null,
+    "strategy": null
   },
   "repo": "Elixir.Betting.Repo",
   "schema": null,
-  "table": "users"
+  "table": "tokens"
 }

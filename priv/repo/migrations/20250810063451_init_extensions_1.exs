@@ -727,6 +727,8 @@ defmodule Betting.Repo.Migrations.InitExtensions1 do
         PROCEDURE = money_mult_reverse
     );
     """
+
+    execute("CREATE EXTENSION IF NOT EXISTS \"citext\"")
   end
 
   def down do
@@ -754,5 +756,7 @@ defmodule Betting.Repo.Migrations.InitExtensions1 do
         procedure = money_gt
     );
     """
+
+    # execute("DROP EXTENSION IF EXISTS \"ct itext\"")
   end
 end
