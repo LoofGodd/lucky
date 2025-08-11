@@ -71,7 +71,7 @@ config :spark,
 config :betting,
   ecto_repos: [Betting.Repo],
   generators: [timestamp_type: :utc_datetime],
-  ash_domains: [Betting.Main]
+  ash_domains: [Betting.Main, Betting.Games]
 
 # Configures the endpoint
 config :betting, BettingWeb.Endpoint,

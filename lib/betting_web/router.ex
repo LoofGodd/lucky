@@ -80,10 +80,10 @@ defmodule BettingWeb.Router do
 
     live_session :playing,
       on_mount: [
-        {BettingWeb.Utils.Auth, :ensure_authed},
         {BettingWeb.Utils.Auth, :ensure_player}
       ] do
-      get "/user/playing", UserController, :show
+      live "/user/play", Live.Play
+      live "/user/playing/heads-or-tails", Live.CoinFlib
     end
   end
 

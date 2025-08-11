@@ -104,3 +104,78 @@
 [data-phx-session], [data-phx-teleported-src] { display: contents }
 
 /* This file is for your main application CSS */
+/* You likely already have Tailwind set up. These classes use plain CSS so it works either way. */
+
+.coin-wrapper { perspective: 1200px; }
+
+#coin-hook { --coin-size: 200px; }
+
+/* Responsive coin size example */
+@media (min-width: 640px) {
+  #coin-hook { --coin-size: 240px; }
+}
+@media (min-width: 1024px) {
+  #coin-hook { --coin-size: 300px; }
+}
+
+.coin {
+  position: relative;
+  width: var(--coin-size);
+  height: var(--coin-size);
+  border-radius: 9999px;
+  background-image: linear-gradient(135deg, #fef3c7, #fde68a, #f59e0b);
+  box-shadow:
+    inset 2px 2px 8px rgba(255,255,255,0.45),
+    inset -6px -10px 20px rgba(0,0,0,0.25),
+    0 20px 40px rgba(0,0,0,0.25);
+  border: 1px solid rgba(217,119,6,0.4);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+
+.coin-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 2px rgba(120,53,15,0.25),
+    inset 0 0 0 6px rgba(255,255,255,0.08);
+}
+
+.coin-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 9999px;
+  backface-visibility: hidden;
+  transform: rotateY(0deg) translateZ(1px);
+}
+
+.coin-face--back {
+  transform: rotateY(180deg) translateZ(1px);
+}
+
+.coin-letter {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-shadow:
+    0 2px 0 rgba(255,255,255,0.35),
+    0 6px 16px rgba(0,0,0,0.25);
+  font-size: calc(var(--coin-size) * 0.34);
+  user-select: none;
+}
+
+.coin-letter--heads { color: #78350f; }
+.coin-letter--tails { color: #1f2937; }
+
+.coin-highlight {
+  pointer-events: none;
+  position: absolute;
+  inset: -8px;
+  border-radius: 9999px;
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  filter: blur(12px);
+}

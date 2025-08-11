@@ -2,14 +2,26 @@
   "attributes": [
     {
       "allow_nil?": false,
-      "default": "nil",
+      "default": "fragment(\"gen_random_uuid()\")",
       "generated?": false,
       "precision": null,
       "primary_key?": true,
       "references": null,
       "scale": null,
       "size": null,
-      "source": "jti",
+      "source": "id",
+      "type": "uuid"
+    },
+    {
+      "allow_nil?": false,
+      "default": "nil",
+      "generated?": false,
+      "precision": null,
+      "primary_key?": false,
+      "references": null,
+      "scale": null,
+      "size": null,
+      "source": "title",
       "type": "text"
     },
     {
@@ -21,31 +33,7 @@
       "references": null,
       "scale": null,
       "size": null,
-      "source": "subject",
-      "type": "text"
-    },
-    {
-      "allow_nil?": false,
-      "default": "nil",
-      "generated?": false,
-      "precision": null,
-      "primary_key?": false,
-      "references": null,
-      "scale": null,
-      "size": null,
-      "source": "expires_at",
-      "type": "utc_datetime"
-    },
-    {
-      "allow_nil?": false,
-      "default": "nil",
-      "generated?": false,
-      "precision": null,
-      "primary_key?": false,
-      "references": null,
-      "scale": null,
-      "size": null,
-      "source": "purpose",
+      "source": "slug",
       "type": "text"
     },
     {
@@ -57,32 +45,32 @@
       "references": null,
       "scale": null,
       "size": null,
-      "source": "extra_data",
-      "type": "map"
+      "source": "description",
+      "type": "text"
     },
     {
-      "allow_nil?": false,
-      "default": "fragment(\"(now() AT TIME ZONE 'utc')\")",
+      "allow_nil?": true,
+      "default": "\"soon\"",
       "generated?": false,
       "precision": null,
       "primary_key?": false,
       "references": null,
       "scale": null,
       "size": null,
-      "source": "created_at",
-      "type": "utc_datetime_usec"
+      "source": "status",
+      "type": "text"
     },
     {
-      "allow_nil?": false,
-      "default": "fragment(\"(now() AT TIME ZONE 'utc')\")",
+      "allow_nil?": true,
+      "default": "nil",
       "generated?": false,
       "precision": null,
       "primary_key?": false,
       "references": null,
       "scale": null,
       "size": null,
-      "source": "updated_at",
-      "type": "utc_datetime_usec"
+      "source": "image",
+      "type": "text"
     }
   ],
   "base_filter": null,
@@ -90,7 +78,7 @@
   "custom_indexes": [],
   "custom_statements": [],
   "has_create_action": true,
-  "hash": "B1D247E4D54C21B7843C5B890FC60C94788FC0CB161F8B86EAB6467D46162AD5",
+  "hash": "731AFAE4079609874EFB567825C44A5FC8934A74D06DA62FF2E1FF4FAEBCC002",
   "identities": [],
   "multitenancy": {
     "attribute": null,
@@ -99,5 +87,5 @@
   },
   "repo": "Elixir.Betting.Repo",
   "schema": null,
-  "table": "tokens"
+  "table": "games"
 }

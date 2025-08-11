@@ -95,11 +95,23 @@ defmodule Betting.MixProject do
   #     $ mix setup
   #
   # See the documentation for `Mix` for more info on aliases.
+  defp run_rm(_) do
+    Mix.shell().cmd("rm -rf priv/repo/migrations")
+    File.mkdir_p!("priv/repo/migrations")
+    Mix.shell().cmd("cp -p priv/repo/20250811040543_add_oban.exs priv/repo/migrations/ ")
+    Mix.shell().cmd("rm -rf priv/resource_snapshots/repo")
+  end
+
   defp aliases do
     [
       setup: ["deps.get", "ash.setup", "assets.setup", "assets.build", "run priv/repo/seeds.exs"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "ecto.reset": [
+        "ecto.drop",
+        &run_rm/1,
+        "ash_postgres.generate_migrations init",
+        "ecto.setup"
+      ],
       test: ["ash.setup --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["tailwind betting", "esbuild betting"],

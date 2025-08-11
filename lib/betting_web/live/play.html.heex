@@ -1,0 +1,127 @@
+<div class="min-h-[100svh] bg-base-100">
+  <section class="container mx-auto px-4 pt-10 sm:pt-14">
+    <div class="hero bg-base-200 rounded-2xl">
+      <div class="hero-content flex-col lg:flex-row-reverse gap-8">
+        <div class="grid grid-cols-3 gap-3 w-full lg:w-1/2">
+          <div class="col-span-2 overflow-hidden rounded-xl">
+            <img
+              src="https://musee-possen.lu/wp-content/uploads/2020/08/placeholder.png"
+              alt="Heads or Tails preview"
+              class="h-40 sm:h-56 w-full object-cover"
+              width="900"
+              height="600"
+              loading="lazy"
+            />
+          </div>
+          <div class="overflow-hidden rounded-xl">
+            <img
+              src="https://musee-possen.lu/wp-content/uploads/2020/08/placeholder.png"
+              alt="Dice Roll preview"
+              class="h-40 sm:h-56 w-full object-cover"
+              width="600"
+              height="600"
+              loading="lazy"
+            />
+          </div>
+          <div class="overflow-hidden rounded-xl">
+            <img
+              src="https://musee-possen.lu/wp-content/uploads/2020/08/placeholder.png"
+              alt="Rock Paper Scissors preview"
+              class="h-32 sm:h-40 w-full object-cover"
+              width="600"
+              height="400"
+              loading="lazy"
+            />
+          </div>
+          <div class="col-span-2 overflow-hidden rounded-xl">
+            <img
+              src="https://musee-possen.lu/wp-content/uploads/2020/08/placeholder.png"
+              alt="Space Runner preview"
+              class="h-32 sm:h-40 w-full object-cover"
+              width="900"
+              height="400"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="text-center lg:text-left w-full lg:w-1/2">
+          <div class="badge badge-neutral mb-2">Play instantly</div>
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
+            Pick a game and start playing in seconds
+          </h1>
+          <p class="mt-3 text-base-content/70 max-w-xl mx-auto lg:mx-0">
+            Beautiful visuals, quick rounds, and fair randomness. No sign up required.
+          </p>
+          <div class="mt-5 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+            Link to Heads or Tails (available)
+            <.link
+              navigate={~p"/user/playing/heads-or-tails?token=#{@token}"}
+              class="btn btn-primary"
+            >
+              Play Heads or Tails
+            </.link>
+            <button class="btn btn-outline" disabled aria-disabled="true">
+              Search games (soon)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-12 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <%= for g <- @games do %>
+        <article class={[
+          "card bg-base-100 shadow-xl transition duration-200",
+          g.status == :available && "hover:shadow-2xl hover:-translate-y-0.5",
+          g.status != :available && "opacity-95"
+        ]}>
+          <figure class="relative overflow-hidden">
+            <img
+              src={g.image}
+              alt={"#{g.title} cover art"}
+              class="w-full h-44 sm:h-56 object-cover"
+              width="800"
+              height="500"
+              loading="lazy"
+            />
+            <div class="absolute left-3 top-3 flex items-center gap-2">
+              <div :if={g.status == "available"} class="badge badge-success">Ready</div>
+              <div :if={g.status != "available"} class="badge badge-warning">Coming soon</div>
+            </div>
+          </figure>
+          <div class="card-body">
+            <h2 class="card-title text-lg">{g.title}</h2>
+            <p class="text-base-content/70">{g.description}</p>
+            <div class="card-actions mt-3">
+              <%= if g.status == "available"  do %>
+                <.link
+                  navigate={~p"/user/playing/#{g.slug}?token=#{@token}"}
+                  class="btn btn-primary w-full"
+                >
+                  Play now
+                </.link>
+              <% else %>
+                <button class="btn btn-outline w-full" disabled aria-disabled="true">
+                  Coming soon
+                </button>
+              <% end %>
+            </div>
+          </div>
+        </article>
+      <% end %>
+    </div>
+
+    <div class="mt-10 card bg-base-100 border border-base-200">
+      <div class="card-body">
+        <h3 class="card-title text-xl">Why you’ll love these games</h3>
+        <ul class="text-base-content/70 list-disc list-inside space-y-1">
+          <li>Beautiful cover art and satisfying animations</li>
+          <li>Accessible controls and keyboard support</li>
+          <li>Mobile-friendly layouts and quick sessions</li>
+          <li>Fair randomness where applicable</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="h-12" />
+  </section>
+</div>

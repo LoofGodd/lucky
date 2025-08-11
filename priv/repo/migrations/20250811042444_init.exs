@@ -61,6 +61,15 @@ defmodule Betting.Repo.Migrations.Init do
       add :company_id, :uuid
     end
 
+    create table(:games, primary_key: false) do
+      add :id, :uuid, null: false, default: fragment("gen_random_uuid()"), primary_key: true
+      add :title, :text, null: false
+      add :slug, :text, null: false
+      add :description, :text
+      add :status, :text, default: "soon"
+      add :image, :text
+    end
+
     create table(:campanies, primary_key: false) do
       add :id, :uuid, null: false, default: fragment("gen_random_uuid()"), primary_key: true
     end
@@ -120,6 +129,8 @@ defmodule Betting.Repo.Migrations.Init do
     end
 
     drop table(:campanies)
+
+    drop table(:games)
 
     drop table(:players)
 

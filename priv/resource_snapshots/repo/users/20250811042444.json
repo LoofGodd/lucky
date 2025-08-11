@@ -21,7 +21,19 @@
       "references": null,
       "scale": null,
       "size": null,
-      "source": "name",
+      "source": "email",
+      "type": "citext"
+    },
+    {
+      "allow_nil?": true,
+      "default": "\"mederator\"",
+      "generated?": false,
+      "precision": null,
+      "primary_key?": false,
+      "references": null,
+      "scale": null,
+      "size": null,
+      "source": "role",
       "type": "text"
     },
     {
@@ -33,7 +45,7 @@
       "references": null,
       "scale": null,
       "size": null,
-      "source": "slug",
+      "source": "hashed_password",
       "type": "text"
     },
     {
@@ -45,20 +57,8 @@
       "references": null,
       "scale": null,
       "size": null,
-      "source": "url",
-      "type": "text"
-    },
-    {
-      "allow_nil?": true,
-      "default": "nil",
-      "generated?": false,
-      "precision": null,
-      "primary_key?": false,
-      "references": null,
-      "scale": null,
-      "size": null,
-      "source": "metadata",
-      "type": "map"
+      "source": "confirmed_at",
+      "type": "utc_datetime_usec"
     },
     {
       "allow_nil?": false,
@@ -90,19 +90,19 @@
   "custom_indexes": [],
   "custom_statements": [],
   "has_create_action": true,
-  "hash": "AC7F573870096132D5E11C6F03960AB79A9FDC0484137453E2E075ADFE763215",
+  "hash": "BE093C92F21D29DCEF1C6BB76F4A068AAAB41D9D9C0108707F5E855D65E8DD8D",
   "identities": [
     {
       "all_tenants?": false,
       "base_filter": null,
-      "index_name": "campanies_slug_index",
+      "index_name": "users_unique_email_index",
       "keys": [
         {
           "type": "atom",
-          "value": "slug"
+          "value": "email"
         }
       ],
-      "name": "slug",
+      "name": "unique_email",
       "nils_distinct?": true,
       "where": null
     }
@@ -114,5 +114,5 @@
   },
   "repo": "Elixir.Betting.Repo",
   "schema": null,
-  "table": "campanies"
+  "table": "users"
 }

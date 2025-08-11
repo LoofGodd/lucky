@@ -1,0 +1,98 @@
+<div class="min-h-[100svh] flex items-center justify-center px-4 ">
+  <div class="w-full max-w-3xl">
+    <div class="rounded-xl border border-zinc-200 shadow-lg">
+      <div class="px-6 py-5 text-center">
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Heads or Tails!</h1>
+      </div>
+
+      <div class="px-6 pb-6">
+        <div class="mx-auto flex max-w-xl flex-col items-center gap-6 sm:gap-8">
+          <div class="flex items-center gap-3">
+            <span class="inline-flex items-center bg-white/10 gap-2 rounded-md  px-3 py-1.5 text-base">
+              <span class="font-medium">Heads:</span>
+              <span>{@heads}</span>
+            </span>
+            <span class="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-1.5 text-base">
+              <span class="font-medium">Tails:</span>
+              <span>{@tails}</span>
+            </span>
+          </div>
+          <div class="w-full flex items-center justify-center coin-wrapper">
+            <div id="coin-hook" phx-hook="CoinFlip" class="outline-none">
+              <button
+                type="button"
+                class={[
+                  "relative rounded-full select-none focus-visible:ring-4 ring-amber-300/60 transition-shadow",
+                  @is_flipping && "pointer-events-none opacity-90"
+                ]}
+                phx-click="flip"
+                aria-label="Flip the coin"
+                style="width: var(--coin-size, 200px); height: var(--coin-size, 200px);"
+              >
+                <div data-coin class="coin" style={"transform: rotateY(#{@face}deg)"; }>
+                  <div class="coin-rim" aria-hidden="true"></div>
+                  <div class="coin-face">
+                    <span class="coin-letter coin-letter--heads" aria-hidden="true">H</span>
+                    <span class="sr-only">Heads</span>
+                  </div>
+                  <div class="coin-face coin-face--back">
+                    <span class="coin-letter coin-letter--tails" aria-hidden="true">T</span>
+                    <span class="sr-only">Tails</span>
+                  </div>
+                </div>
+                <div aria-hidden="true" class="coin-highlight"></div>
+              </button>
+            </div>
+          </div>
+          <div class="flex flex-col items-center gap-4">
+            <div
+              class={[
+                "min-h-[28px] text-lg font-semibold",
+                @is_flipping && "text-zinc-500",
+                !@is_flipping && "text-gray-100"
+              ]}
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              <%= if @is_flipping do %>
+                Flipping...
+              <% else %>
+                <%= if @result do %>
+                  Result: <span class="text-amber-700">{@result}</span>
+                <% else %>
+                  Ready to flip
+                <% end %>
+              <% end %>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <button
+                type="button"
+                phx-click="flip"
+                class={[
+                  "inline-flex items-center justify-center gap-2 rounded-md bg-zinc-900 text-white px-5 py-2.5 text-sm font-medium",
+                  "disabled:opacity-50 disabled:pointer-events-none"
+                ]}
+                disabled={@is_flipping}
+              >
+                {if @is_flipping, do: "Flipping...", else: "Flip"}
+              </button>
+
+              <button
+                type="button"
+                phx-click="reset"
+                class={[
+                  "inline-flex items-center justify-center rounded-md border border-zinc-300 px-5 py-2.5 text-sm font-medium",
+                  "disabled:opacity-50 disabled:pointer-events-none"
+                ]}
+                disabled={@is_flipping || (@heads == 0 and @tails == 0)}
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

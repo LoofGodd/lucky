@@ -1,7 +1,6 @@
 defmodule Betting.Main do
   use Ash.Domain,
-    otp_app: :betting,
-    extensions: [AshAdmin.Domain]
+    otp_app: :betting
 
   resources do
     resource Betting.Accounts.User
